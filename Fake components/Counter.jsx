@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 
 const Counter = () => {
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(12)
 
     function descrement(){
         setCount(count - 1)
+        if(count === 0){
+            return alert('fake')
+        }
+        
     }
 
     function increment(){

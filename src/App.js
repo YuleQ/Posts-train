@@ -1,6 +1,7 @@
 import React, { useState, } from 'react';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
+import Counter from '../Fake components/Counter';
 import './styles/main.scss'
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
 
      return(
          <div className='App'>
+            <Counter/>
              <PostForm create={createPost}/>
              {posts.length !== 0 
                 ?<PostList remove={removePost} posts={posts} title='Посты по Js'/>
