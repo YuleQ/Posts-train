@@ -6,11 +6,7 @@
     bottom: 0;
     display: none;
     background: rgb(0,0,0, 0.5);
-    &:active{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+
 }
 
 .myModalContent{
@@ -18,4 +14,10 @@
     background: white;
     border-radius: 16px;
     min-width: 250px;
+}
+
+.myModal.active{
+        display: flex;
+        justify-content: center;
+        align-items: center;
 }
