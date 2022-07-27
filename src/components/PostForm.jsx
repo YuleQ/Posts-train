@@ -22,7 +22,6 @@ const PostForm = ({create}) => {
            type='text' 
            placeholder='Название поста'
            />
-           {/* Неуправляемый компонент/Неконтролируемый */}
         <MyInput
            value={post.body}
            onChange={e => setPost( {...post, body: e.target.value})}
