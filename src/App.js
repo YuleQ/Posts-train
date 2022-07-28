@@ -1,11 +1,12 @@
-import axios from 'axios';
 import React, { useMemo, useState, useEffect } from 'react';
 import PostService from './API/PostService';
 import PostFilter from './components/PostFilter';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
 import MyButton from './components/UI/button/MyButton';
+import Loader from './components/UI/Loader/Loader';
 import MyModal from './components/UI/MyModal/MyModal';
+import { useFetching } from './hooks/useFetching';
 import { usePosts } from './hooks/usePosts';
 import './styles/main.scss'
 
@@ -15,6 +16,10 @@ function App() {
     const [modal , setModal] = useState(false)
     const sortedAndSearchedPosts = usePosts(posts , filter.sort , filter.query)
     const [postsLoading , setPostsloading] = useState(false)
+    const [fetchPost , isPostsLoading , postError] = useFetching(async () => {
+        const posts = await PostService.getAll()
+        setPosts(posts)
+    })
 
     useEffect(() => {
       fetchPost()
@@ -27,12 +32,6 @@ function App() {
         setModal(false)
     }
 
-        async function fetchPost(){
-            setPostsloading(true)
-            const posts = await PostService.getAll()
-            setPosts(posts)
-            setPostsloading(false)
-    }
 
     const removePost = (post) => {
         setPosts(posts.filter(p => p.id !== post.id))
@@ -51,8 +50,8 @@ function App() {
                 filter= {filter}
                 setFilter= {setFilter}
              />
-             {postsLoading
-                ? <h1> Идет загрузка...</h1>
+             {isPostsLoading
+                ? <div style={{display: 'flex' , justifyContent: 'center' , marginTop: 50}}><Loader/></div>
                 :<PostList remove={removePost} posts={sortedAndSearchedPosts} title='Посты по Js'/>     
 
              }
